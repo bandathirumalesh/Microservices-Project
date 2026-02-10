@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            customWorkspace 'C:/jenkins/workspace/microservices'
+        }
+    }
 
     stages {
 
@@ -33,7 +37,7 @@ pipeline {
             }
         }
 
-        stage('Billing Service (Provider)') {
+        stage('Billing Service') {
             steps {
                 dir('BootMSProj04-ProviderMS-BillinServiceAPI') {
                     sh 'mvn clean package'
@@ -43,7 +47,7 @@ pipeline {
             }
         }
 
-        stage('Shopping Service (Consumer)') {
+        stage('Shopping Service') {
             steps {
                 dir('BootMSProj04-ConsumerMs-ShoppingAPI') {
                     sh 'mvn clean package'
@@ -52,5 +56,3 @@ pipeline {
                 }
             }
         }
-    }
-}
