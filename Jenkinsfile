@@ -1,17 +1,24 @@
 pipeline {
-    agent {
-        node {
-            customWorkspace 'C:/jenkins/workspace/microservices'
-        }
+    agent any
+
+    options {
+        skipDefaultCheckout(true)
     }
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                dir('C:/jenkins/workspace/microservices') {
+                    checkout scm
+                }
+            }
+        }
+
         stage('External Config Server') {
             steps {
-                dir('BootMSProj04-ConfigServer-ExternalConfigServer') {
+                dir('C:/jenkins/workspace/microservices/BootMSProj04-ConfigServer-ExternalConfigServer') {
                     bat 'mvn clean package'
-                    bat 'taskkill /F /IM java.exe /T || exit 0'
                     bat 'start /B java -jar target\\*.jar'
                 }
             }
@@ -19,9 +26,8 @@ pipeline {
 
         stage('Config Server') {
             steps {
-                dir('BootMSProj04-ConfigServer') {
+                dir('C:/jenkins/workspace/microservices/BootMSProj04-ConfigServer') {
                     bat 'mvn clean package'
-                    bat 'taskkill /F /IM java.exe /T || exit 0'
                     bat 'start /B java -jar target\\*.jar'
                 }
             }
@@ -29,9 +35,8 @@ pipeline {
 
         stage('Eureka Server') {
             steps {
-                dir('BootMSProj04-EurekaServer') {
+                dir('C:/jenkins/workspace/microservices/BootMSProj04-EurekaServer') {
                     bat 'mvn clean package'
-                    bat 'taskkill /F /IM java.exe /T || exit 0'
                     bat 'start /B java -jar target\\*.jar'
                 }
             }
@@ -39,9 +44,8 @@ pipeline {
 
         stage('Billing Service') {
             steps {
-                dir('BootMSProj04-ProviderMS-BillinServiceAPI') {
+                dir('C:/jenkins/workspace/microservices/BootMSProj04-ProviderMS-BillinServiceAPI') {
                     bat 'mvn clean package'
-                    bat 'taskkill /F /IM java.exe /T || exit 0'
                     bat 'start /B java -jar target\\*.jar'
                 }
             }
@@ -49,9 +53,8 @@ pipeline {
 
         stage('Shopping Service') {
             steps {
-                dir('BootMSProj04-ConsumerMs-ShoppingAPI') {
+                dir('C:/jenkins/workspace/microservices/BootMSProj04-ConsumerMs-ShoppingAPI') {
                     bat 'mvn clean package'
-                    bat 'taskkill /F /IM java.exe /T || exit 0'
                     bat 'start /B java -jar target\\*.jar'
                 }
             }
