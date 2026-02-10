@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 23
+Implementation-Title: BootMSProj02-ConsumerMs-ShoppingAPI-DiscoveryClien
+ t
+Implementation-Version: 0.0.1-SNAPSHOT
+Created-By: Maven Integration for Eclipse
+
